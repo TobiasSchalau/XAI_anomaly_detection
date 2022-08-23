@@ -1,0 +1,13 @@
+Metadata-Version: 1.0
+Name: xai-anomaly-detection
+Version: 0.1
+Summary: "Package for generating explainations for ML model trained on NSL-KDD data set"
+Home-page: UNKNOWN
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: MIT
+Description: # XAI anomaly detection
+        ## Description
+        This package contains several classes to generate explainations by explainable AI techniques for a fully connected DNN and the NSL-KDD data set it is trained on. Each class can be used indpendent of the others.
+        
+Platform: UNKNOWN
