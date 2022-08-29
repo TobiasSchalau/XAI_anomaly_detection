@@ -4,7 +4,10 @@ This package contains several classes to generate explainations by explainable A
 
 ## Installation (currently)
 ´´´bash
-cd xai_anomaly_detection
 pip install -e .
-cd ..
 ´´´
+
+## Testing
+`python -m pytest`
+
+just `pytest` causes `ImportError` because `pytest` does not add the current directory to the PYTHONPATH
