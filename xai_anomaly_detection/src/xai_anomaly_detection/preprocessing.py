@@ -2,7 +2,7 @@
 import os
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
 
 class PreprocessNSLKDD:
     """ Class for perform different preprocessing steps
@@ -77,6 +77,9 @@ class PreprocessNSLKDD:
             self.test_data[col] = 0
         self.test_data = self.test_data.reindex(sorted(self.test_data.columns), axis=1)
 
+        self.test_data = self._min_max_normalization(self.test_data)
+        self.train_data = self._min_max_normalization(self.train_data)
+
     @staticmethod
     def _one_hot_encoding(dataset: pd.DataFrame) -> pd.DataFrame:
         """One hot encoding of every categorial column in dataframe
@@ -111,6 +114,28 @@ class PreprocessNSLKDD:
 
         # return sorted dataframe
         return dataset.reindex(sorted(dataset.columns), axis=1)
+
+    @staticmethod
+    def _min_max_normalization(dataset: pd.DataFrame) -> pd.DataFrame:
+        """ Min-Max normalization of dataset
+
+        Parameters
+        ----------
+        dataset : pd.DataFrame
+            data set not normalized
+
+        Returns
+        -------
+        pd.DataFrame
+            normalized dataset in range between 0 and 1
+        """
+
+        for colname in dataset.columns:
+            if colname == 'outcome':
+                continue
+            dataset[colname] = MinMaxScaler().fit_transform(np.asarray(dataset[colname]).reshape(-1,1))
+
+        return dataset
 
     def print_head(self, dataset: str) -> None:
         """ Prints head of given dataset
