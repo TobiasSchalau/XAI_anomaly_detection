@@ -4,67 +4,74 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
 
+
 class PreprocessNSLKDD:
-    """ Class for perform different preprocessing steps
-        on NSL-KDD data set
+    """Class for perform different preprocessing steps
+    on NSL-KDD data set
     """
 
     def __init__(self) -> None:
-        self.train_data = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'KDDTrain+.txt'))
-        self.test_data = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'KDDTest+.txt'))
+        self.train_data = pd.read_csv(
+            os.path.join(os.path.dirname(__file__), "..", "..", "data", "KDDTrain+.txt")
+        )
+        self.test_data = pd.read_csv(
+            os.path.join(os.path.dirname(__file__), "..", "..", "data", "KDDTest+.txt")
+        )
 
         # Get columns name for data
-        columns = (['duration'
-        ,'protocol_type'
-        ,'service'
-        ,'flag'
-        ,'src_bytes'
-        ,'dst_bytes'
-        ,'land'
-        ,'wrong_fragment'
-        ,'urgent'
-        ,'hot'
-        ,'num_failed_logins'
-        ,'logged_in'
-        ,'num_compromised'
-        ,'root_shell'
-        ,'su_attempted'
-        ,'num_root'
-        ,'num_file_creations'
-        ,'num_shells'
-        ,'num_access_files'
-        ,'num_outbound_cmds'
-        ,'is_host_login'
-        ,'is_guest_login'
-        ,'count'
-        ,'srv_count'
-        ,'serror_rate'
-        ,'srv_serror_rate'
-        ,'rerror_rate'
-        ,'srv_rerror_rate'
-        ,'same_srv_rate'
-        ,'diff_srv_rate'
-        ,'srv_diff_host_rate'
-        ,'dst_host_count'
-        ,'dst_host_srv_count'
-        ,'dst_host_same_srv_rate'
-        ,'dst_host_diff_srv_rate'
-        ,'dst_host_same_src_port_rate'
-        ,'dst_host_srv_diff_host_rate'
-        ,'dst_host_serror_rate'
-        ,'dst_host_srv_serror_rate'
-        ,'dst_host_rerror_rate'
-        ,'dst_host_srv_rerror_rate'
-        ,'outcome'
-        ,'level'])
+        columns = [
+            "duration",
+            "protocol_type",
+            "service",
+            "flag",
+            "src_bytes",
+            "dst_bytes",
+            "land",
+            "wrong_fragment",
+            "urgent",
+            "hot",
+            "num_failed_logins",
+            "logged_in",
+            "num_compromised",
+            "root_shell",
+            "su_attempted",
+            "num_root",
+            "num_file_creations",
+            "num_shells",
+            "num_access_files",
+            "num_outbound_cmds",
+            "is_host_login",
+            "is_guest_login",
+            "count",
+            "srv_count",
+            "serror_rate",
+            "srv_serror_rate",
+            "rerror_rate",
+            "srv_rerror_rate",
+            "same_srv_rate",
+            "diff_srv_rate",
+            "srv_diff_host_rate",
+            "dst_host_count",
+            "dst_host_srv_count",
+            "dst_host_same_srv_rate",
+            "dst_host_diff_srv_rate",
+            "dst_host_same_src_port_rate",
+            "dst_host_srv_diff_host_rate",
+            "dst_host_serror_rate",
+            "dst_host_srv_serror_rate",
+            "dst_host_rerror_rate",
+            "dst_host_srv_rerror_rate",
+            "outcome",
+            "level",
+        ]
 
         # Assign name for columns
         self.train_data.columns = columns
-        self.test_data.columns  = columns
+        self.test_data.columns = columns
 
     def preprocessing(self) -> None:
-        """ convert categorial features in binary features with one-hot-encoding
-            and normalizes data with min-max normalization
+        """convert categorial features in binary features with one-hot-encoding
+        and normalizes data with min-max normalization
         """
 
         self.test_data = self._one_hot_encoding(self.test_data)
@@ -95,14 +102,20 @@ class PreprocessNSLKDD:
             dataframe without categorial columns
         """
 
-        for categorial_column in ['protocol_type', 'service', 'flag']:
+        for categorial_column in ["protocol_type", "service", "flag"]:
             # get unique values to create column names
-            columns = [categorial_column+'_'+x for x in dataset[categorial_column].unique()]
+            columns = [
+                categorial_column + "_" + x for x in dataset[categorial_column].unique()
+            ]
 
             # define one hot encoding
             encoder = OneHotEncoder(sparse=False)
             # transform data
-            encoder_df = pd.DataFrame(encoder.fit_transform(np.asarray(dataset[categorial_column]).reshape(-1,1)))
+            encoder_df = pd.DataFrame(
+                encoder.fit_transform(
+                    np.asarray(dataset[categorial_column]).reshape(-1, 1)
+                )
+            )
             # set column names for on ehot encoded data set
             encoder_df.columns = columns
 
@@ -117,7 +130,7 @@ class PreprocessNSLKDD:
 
     @staticmethod
     def _min_max_normalization(dataset: pd.DataFrame) -> pd.DataFrame:
-        """ Min-Max normalization of dataset
+        """Min-Max normalization of dataset
 
         Parameters
         ----------
@@ -131,25 +144,27 @@ class PreprocessNSLKDD:
         """
 
         for colname in dataset.columns:
-            if colname == 'outcome':
+            if colname == "outcome":
                 continue
-            dataset[colname] = MinMaxScaler().fit_transform(np.asarray(dataset[colname]).reshape(-1,1))
+            dataset[colname] = MinMaxScaler().fit_transform(
+                np.asarray(dataset[colname]).reshape(-1, 1)
+            )
 
         return dataset
 
     def print_head(self, dataset: str) -> None:
-        """ Prints head of given dataset
+        """Prints head of given dataset
 
         Parameters
         ----------
         dataset : str
             'train' or 'test' data set
         """
-        if dataset=='train':
-            print('Train data set:')
+        if dataset == "train":
+            print("Train data set:")
             print(self.train_data.head())
-        elif dataset=='test':
-            print('Test data set:')
+        elif dataset == "test":
+            print("Test data set:")
             print(self.test_data.head())
         else:
-            print('Dataset does not exist')
+            print("Dataset does not exist")
