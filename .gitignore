@@ -1,5 +1,6 @@
 # compile
 */__pycache__/
+__pycache__
 
 # package
 *.egg-info/
