@@ -87,6 +87,10 @@ class PreprocessNSLKDD:
         self.test_data = self._min_max_normalization(self.test_data)
         self.train_data = self._min_max_normalization(self.train_data)
 
+        # convert each attack class to class 'attack'
+        self.test_data['outcome'].replace(to_replace=r'^(?!normal).*$', value='attack', inplace=True, regex=True)
+        self.train_data['outcome'].replace(to_replace=r'^(?!normal).*$', value='attack', inplace=True, regex=True)
+
     @staticmethod
     def _one_hot_encoding(dataset: pd.DataFrame) -> pd.DataFrame:
         """One hot encoding of every categorial column in dataframe

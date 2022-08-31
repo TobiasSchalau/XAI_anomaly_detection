@@ -1,6 +1,7 @@
 """ Tests for preprocessing class
 """
 
+from numpy import sort
 from xai_anomaly_detection import preprocessing
 
 NSL_KDD_columns = [
@@ -78,3 +79,6 @@ def test_preprocessing():
         [a == b for a, b in zip(target.train_data.columns, columns_preprocessed)]
     )
     assert all([a == b for a, b in zip(target.test_data.columns, columns_preprocessed)])
+
+    assert all([a == b for a, b in zip(sort(target.test_data['outcome'].unique()), ['attack', 'normal'])])
+    assert all([a == b for a, b in zip(sort(target.train_data['outcome'].unique()), ['attack', 'normal'])])
