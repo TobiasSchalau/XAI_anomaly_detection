@@ -156,19 +156,24 @@ class PreprocessNSLKDD:
 
         return dataset
 
-    def print_head(self, dataset: str) -> None:
-        """Prints head of given dataset
+    def print_overview(self, dataset: str) -> None:
+        """Prints shape, forst 2 lines of given dataset
 
         Parameters
         ----------
         dataset : str
             'train' or 'test' data set
         """
+        _dataset = None
         if dataset == "train":
-            print("Train data set:")
-            print(self.train_data.head())
+            _dataset = self.train_data
         elif dataset == "test":
-            print("Test data set:")
-            print(self.test_data.head())
+            _dataset = self.train_data
         else:
             print("Dataset does not exist")
+            return
+
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+            print(dataset.capitalize() + " data set:")
+            print(_dataset.shape)
+            print(_dataset.head(2))
