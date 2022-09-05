@@ -88,8 +88,12 @@ class PreprocessNSLKDD:
         self.train_data = self._min_max_normalization(self.train_data)
 
         # convert each attack class to class 'attack'
-        self.test_data['outcome'].replace(to_replace=r'^(?!normal).*$', value='attack', inplace=True, regex=True)
-        self.train_data['outcome'].replace(to_replace=r'^(?!normal).*$', value='attack', inplace=True, regex=True)
+        self.test_data["outcome"].replace(
+            to_replace=r"^(?!normal).*$", value="attack", inplace=True, regex=True
+        )
+        self.train_data["outcome"].replace(
+            to_replace=r"^(?!normal).*$", value="attack", inplace=True, regex=True
+        )
 
     @staticmethod
     def _one_hot_encoding(dataset: pd.DataFrame) -> pd.DataFrame:
@@ -173,7 +177,7 @@ class PreprocessNSLKDD:
             print("Dataset does not exist")
             return
 
-        with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        with pd.option_context("display.max_rows", None, "display.max_columns", None):
             print(dataset.capitalize() + " data set:")
             print(_dataset.shape)
             print(_dataset.head(2))
