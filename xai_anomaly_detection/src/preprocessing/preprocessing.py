@@ -12,10 +12,10 @@ class PreprocessNSLKDD:
 
     def __init__(self) -> None:
         self.train_data = pd.read_csv(
-            os.path.join(os.path.dirname(__file__), "..", "..", "data", "KDDTrain+.txt")
+            os.path.join(os.path.dirname(__file__), "data", "KDDTrain+.txt")
         )
         self.test_data = pd.read_csv(
-            os.path.join(os.path.dirname(__file__), "..", "..", "data", "KDDTest+.txt")
+            os.path.join(os.path.dirname(__file__), "data", "KDDTest+.txt")
         )
 
         # Get columns name for data
