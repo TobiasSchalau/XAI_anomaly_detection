@@ -2,7 +2,7 @@
 """
 
 from numpy import sort
-from preprocessing import preprocessing
+from xai_anomaly_detection.preprocessing import preprocessing
 
 NSL_KDD_columns = [
     "duration",
