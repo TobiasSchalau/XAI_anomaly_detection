@@ -5,3 +5,8 @@ __pycache__
 # package
 *.egg-info/
 *.egg
+build/
+
+# environment
+.venv
+.vscode
