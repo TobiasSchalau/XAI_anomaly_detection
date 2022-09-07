@@ -81,18 +81,14 @@ def test_preprocessing():
     assert all([a == b for a, b in zip(target.test_data.columns, columns_preprocessed)])
 
     assert all(
-        [
-            a == b
-            for a, b in zip(
-                sort(target.test_data["outcome"].unique()), ["attack", "normal"]
-            )
-        ]
+        [a == b for a, b in zip(sort(target.test_data["outcome"].unique()), [0, 1])]
     )
     assert all(
-        [
-            a == b
-            for a, b in zip(
-                sort(target.train_data["outcome"].unique()), ["attack", "normal"]
-            )
-        ]
+        [a == b for a, b in zip(sort(target.train_data["outcome"].unique()), [0, 1])]
     )
+
+    (x_train, y_train) = target.get_data(test_data=False)
+    (x_test, y_test) = target.get_data(test_data=True)
+
+    assert x_train != x_test
+    assert y_train != y_test
