@@ -96,6 +96,10 @@ class PreprocessNSLKDD:
             to_replace=r"^(?!normal).*$", value="attack", inplace=True, regex=True
         )
 
+        # encode labels to integer
+        self.test_data["outcome"] = pd.Categorical(self.test_data["outcome"]).codes
+        self.train_data["outcome"] = pd.Categorical(self.train_data["outcome"]).codes
+
     @staticmethod
     def _one_hot_encoding(dataset: pd.DataFrame) -> pd.DataFrame:
         """One hot encoding of every categorical column in dataframe
