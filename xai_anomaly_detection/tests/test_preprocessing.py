@@ -58,13 +58,13 @@ def test_preprocessing():
     assert all([a == b for a, b in zip(target.train_data.columns, NSL_KDD_columns)])
     assert all([a == b for a, b in zip(target.test_data.columns, NSL_KDD_columns)])
 
-    categorial_columns = ["protocol_type", "service", "flag"]
+    categorical_columns = ["protocol_type", "service", "flag"]
     unique_values = {
-        colname: target.train_data[colname].unique() for colname in categorial_columns
+        colname: target.train_data[colname].unique() for colname in categorical_columns
     }
 
     columns_preprocessed = NSL_KDD_columns
-    for elem in categorial_columns:
+    for elem in categorical_columns:
         columns_preprocessed.remove(elem)
 
     for colname in unique_values:

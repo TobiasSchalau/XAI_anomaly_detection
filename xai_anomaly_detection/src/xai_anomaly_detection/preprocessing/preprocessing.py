@@ -1,4 +1,4 @@
-"""Contains class for data proprocessing"""
+"""Contains class for data preprocessing"""
 import os
 import pandas as pd
 import numpy as np
@@ -70,14 +70,14 @@ class PreprocessNSLKDD:
         self.test_data.columns = columns
 
     def preprocessing(self) -> None:
-        """convert categorial features in binary features with one-hot-encoding
+        """convert categorical features in binary features with one-hot-encoding
         and normalizes data with min-max normalization
         """
 
         self.test_data = self._one_hot_encoding(self.test_data)
         self.train_data = self._one_hot_encoding(self.train_data)
 
-        # test data set has fewer unique values in categorial features
+        # test data set has fewer unique values in categorical features
         # so we generate the missing feature columns with values '0'
         missing_columns = np.setdiff1d(self.train_data.columns, self.test_data.columns)
         for col in missing_columns:
@@ -97,7 +97,7 @@ class PreprocessNSLKDD:
 
     @staticmethod
     def _one_hot_encoding(dataset: pd.DataFrame) -> pd.DataFrame:
-        """One hot encoding of every categorial column in dataframe
+        """One hot encoding of every categorical column in dataframe
 
         Parameters
         ----------
@@ -107,13 +107,14 @@ class PreprocessNSLKDD:
         Returns
         -------
         pd.DataFrame
-            dataframe without categorial columns
+            dataframe without categorical columns
         """
 
-        for categorial_column in ["protocol_type", "service", "flag"]:
+        for categorical_column in ["protocol_type", "service", "flag"]:
             # get unique values to create column names
             columns = [
-                categorial_column + "_" + x for x in dataset[categorial_column].unique()
+                categorical_column + "_" + x
+                for x in dataset[categorical_column].unique()
             ]
 
             # define one hot encoding
@@ -121,17 +122,17 @@ class PreprocessNSLKDD:
             # transform data
             encoder_df = pd.DataFrame(
                 encoder.fit_transform(
-                    np.asarray(dataset[categorial_column]).reshape(-1, 1)
+                    np.asarray(dataset[categorical_column]).reshape(-1, 1)
                 )
             )
-            # set column names for on ehot encoded data set
+            # set column names for one hot encoded data set
             encoder_df.columns = columns
 
             # merge one hot encoded data into data set
             dataset = dataset.join(encoder_df)
 
-            # drop categorial column
-            dataset.drop(categorial_column, axis=1, inplace=True)
+            # drop categorical column
+            dataset.drop(categorical_column, axis=1, inplace=True)
 
         # return sorted dataframe
         return dataset.reindex(sorted(dataset.columns), axis=1)
@@ -161,7 +162,7 @@ class PreprocessNSLKDD:
         return dataset
 
     def print_overview(self, dataset: str) -> None:
-        """Prints shape, forst 2 lines of given dataset
+        """Prints shape, first 2 lines of given dataset
 
         Parameters
         ----------
