@@ -1,5 +1,6 @@
 """Contains class for data preprocessing"""
 import os
+from typing import Tuple
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
@@ -182,3 +183,29 @@ class PreprocessNSLKDD:
             print(dataset.capitalize() + " data set:")
             print(_dataset.shape)
             print(_dataset.head(2))
+
+    def get_data(self, test_data=False) -> Tuple[np.ndarray, np.ndarray]:
+        """Returns features and labels of data set in tuple format.
+        Labels are encoded to one hot encoded labels
+
+        Parameters
+        ----------
+        test_data : bool, optional
+            whether to return test or train data, by default False
+
+        Returns
+        -------
+        Tuple[np.ndarray, np.ndarray]
+            features, labels
+        """
+        if test_data:
+            data = self.test_data.copy()
+        else:
+            data = self.train_data.copy()
+
+        # select the labels into y
+        y = data.pop("outcome").values
+        # select all features except labels into x
+        x = data.values
+
+        return (x, y)
