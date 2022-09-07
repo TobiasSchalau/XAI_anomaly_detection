@@ -27,7 +27,6 @@ class FCModel(tf.keras.Model):
 
         self.drop = Dropout(DROPOUT_RATE)
 
-    @tf.function
     def call(self, inputs):
         x = self.hidden1(inputs)
         x = self.drop(x)
