@@ -1,6 +1,7 @@
 """Contains class for data preprocessing"""
 import os
 from typing import Tuple
+import typing
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
@@ -166,29 +167,7 @@ class PreprocessNSLKDD:
 
         return dataset
 
-    def print_overview(self, dataset: str) -> None:
-        """Prints shape, first 2 lines of given dataset
-
-        Parameters
-        ----------
-        dataset : str
-            'train' or 'test' data set
-        """
-        _dataset = None
-        if dataset == "train":
-            _dataset = self.train_data
-        elif dataset == "test":
-            _dataset = self.train_data
-        else:
-            print("Dataset does not exist")
-            return
-
-        with pd.option_context("display.max_rows", None, "display.max_columns", None):
-            print(dataset.capitalize() + " data set:")
-            print(_dataset.shape)
-            print(_dataset.head(2))
-
-    def get_data(self, test_data=False) -> Tuple[np.ndarray, np.ndarray]:
+    def get_data(self, test_data=False, as_df=False) -> typing.Union[Tuple[np.ndarray, np.ndarray], Tuple[pd.DataFrame, pd.Series]]:
         """Returns features and labels of data set in tuple format.
         Labels are encoded to one hot encoded labels
 
