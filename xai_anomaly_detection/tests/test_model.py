@@ -1,12 +1,13 @@
 """ Tests for model class
 """
 
-# from typing_extensions import assert_type
 from xai_anomaly_detection.model.FCModel import FCModel, get_sequential_model
 import tensorflow as tf
 
 
 def test_FCModel():
+    """Test models
+    """
     model = FCModel(20)
     assert type(model) is FCModel
 
