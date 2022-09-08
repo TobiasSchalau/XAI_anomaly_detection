@@ -39,7 +39,7 @@ f1_m: 59.67%
 ![Alt text](/docs/force_plot.png "Example summary plot")
 
 #### LIME
-![Alt text](/docs/LIME.png "Example LIME result")
+![Alt text](/docs/lime.png "Example LIME result")
 
 #### BRCG
 ```bash
@@ -53,4 +53,4 @@ Recall: 0.9710637421480794
   'level > 0.86 AND service_smtp not  AND src_bytes > 0.00']}
 ```
 #### ProtoDash
-![Alt text](/docs/ProtoDash.PNG "Example snip from ProtoDash output")
+![Alt text](/docs/ProtoDash.png "Example snip from ProtoDash output")
