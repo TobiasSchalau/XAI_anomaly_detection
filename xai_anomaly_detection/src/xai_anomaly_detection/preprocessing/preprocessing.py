@@ -167,7 +167,9 @@ class PreprocessNSLKDD:
 
         return dataset
 
-    def get_data(self, test_data=False, as_df=False) -> typing.Union[Tuple[np.ndarray, np.ndarray], Tuple[pd.DataFrame, pd.Series]]:
+    def get_data(
+        self, test_data=False, as_df=False
+    ) -> typing.Union[Tuple[np.ndarray, np.ndarray], Tuple[pd.DataFrame, pd.Series]]:
         """Returns features and labels of data set in tuple format.
         Labels are encoded to one hot encoded labels
 

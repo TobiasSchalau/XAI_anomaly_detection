@@ -1,10 +1,13 @@
+"""Module to generate LIME explanations
+"""
 import lime
 import lime.lime_tabular
 import numpy as np
 
+
 class lime_explanations:
-    """Class for create explainer instance and generate LIME visualizations
-    """
+    """Class for create explainer instance and generate LIME visualizations"""
+
     def __init__(self, x_train: np.ndarray, columns: list) -> None:
         self.explainer = lime.lime_tabular.LimeTabularExplainer(
             x_train,
@@ -13,7 +16,9 @@ class lime_explanations:
             mode='regression'
         )
 
-    def generate_lime_explanation(self, model, elem: np.ndarray, num_features=10, show_table=True) -> None:
+    def generate_lime_explanation(
+        self, model, elem: np.ndarray, num_features=10, show_table=True
+    ) -> None:
         """Generates lime explanation graph for given instance
 
         Parameters

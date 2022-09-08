@@ -6,6 +6,7 @@ from aix360.algorithms.protodash import ProtodashExplainer
 from sklearn.preprocessing import OneHotEncoder
 from IPython.utils import io
 
+
 def generate_protodash_explanations(x_train_df: pd.DataFrame) -> pd.DataFrame:
 
     # following instructions from:
@@ -14,7 +15,7 @@ def generate_protodash_explanations(x_train_df: pd.DataFrame) -> pd.DataFrame:
     # convert to numpy
     x_train = x_train_df.to_numpy()
 
-    #sort the rows by sequence numbers in 1st column
+    # sort the rows by sequence numbers in 1st column
     idx = np.argsort(x_train[:, 0])
     x_train = x_train[idx, :]
 
@@ -40,6 +41,6 @@ def generate_protodash_explanations(x_train_df: pd.DataFrame) -> pd.DataFrame:
     # Display the prototypes along with their computed weights
     inc_prototypes = x_train_df.iloc[S, :].copy()
     # Compute normalized importance weights for prototypes
-    inc_prototypes["Weights of Prototypes"] = np.around(W/np.sum(W), 2)
+    inc_prototypes["Weights of Prototypes"] = np.around(W / np.sum(W), 2)
 
     return inc_prototypes

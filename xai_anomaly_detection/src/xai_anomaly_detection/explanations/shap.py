@@ -1,10 +1,12 @@
+"""Module to generate SHAP explanations
+"""
 import shap
 import numpy as np
 
 
 class shap_explanations:
-    """Class for generating shap values and graphs
-    """
+    """Class for generating shap values and graphs"""
+
     def __init__(self, model, x_train: np.ndarray, x_test: np.ndarray) -> None:
         self.explainer = shap.DeepExplainer(
             model, x_train[np.random.randint(x_train.shape[0], size=50), :]
