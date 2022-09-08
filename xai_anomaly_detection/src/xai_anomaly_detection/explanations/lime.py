@@ -10,10 +10,7 @@ class lime_explanations:
 
     def __init__(self, x_train: np.ndarray, columns: list) -> None:
         self.explainer = lime.lime_tabular.LimeTabularExplainer(
-            x_train,
-            feature_names=columns,
-            verbose=True,
-            mode='regression'
+            x_train, feature_names=columns, verbose=True, mode="regression"
         )
 
     def generate_lime_explanation(

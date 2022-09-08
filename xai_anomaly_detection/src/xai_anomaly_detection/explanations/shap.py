@@ -9,7 +9,7 @@ class shap_explanations:
 
     def __init__(self, model, x_train: np.ndarray, x_test: np.ndarray) -> None:
         self.explainer = shap.DeepExplainer(
-            model, x_train[np.random.randint(x_train.shape[0], size=50), :]
+            model, x_train[np.random.randint(x_train.shape[0], size=10), :]
         )
         self.shap_values = self.explainer.shap_values(x_test)
 
@@ -37,29 +37,8 @@ class shap_explanations:
             feature names
         """
         shap.force_plot(
-            self.explainer.expected_value[0].numpy(),
+            self.explainer.expected_value[0],
             self.shap_values[0][np.random.randint(self.shap_values[0].shape, size=1)],
             features=columns,
             matplotlib=True,
-        )
-
-    def generate_collective_force_plot(self, columns: list, x_test: np.ndarray):
-        """Generates a force plot for multiple instances
-        Currently not working!!
-
-        Parameters
-        ----------
-        columns : list
-            feature names
-        x_test : np.ndarray
-            test features
-        """
-
-        indices = np.random.randint(x_test.shape[0], size=50)
-        shap.force_plot(
-            self.explainer.expected_value[0].numpy(),
-            list([self.shap_values[0][i] for i in indices]),
-            x_test[indices, :],
-            feature_names=columns,
-            link="logit"
         )
