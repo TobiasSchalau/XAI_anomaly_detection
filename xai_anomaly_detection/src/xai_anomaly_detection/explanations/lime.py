@@ -3,6 +3,8 @@ import lime.lime_tabular
 import numpy as np
 
 class lime_explanations:
+    """Class for create explainer instance and generate LIME visualizations
+    """
     def __init__(self, x_train: np.ndarray, columns: list) -> None:
         self.explainer = lime.lime_tabular.LimeTabularExplainer(
             x_train,
