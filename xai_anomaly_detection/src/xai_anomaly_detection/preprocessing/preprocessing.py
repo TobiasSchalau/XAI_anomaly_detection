@@ -175,6 +175,8 @@ class PreprocessNSLKDD:
         ----------
         test_data : bool, optional
             whether to return test or train data, by default False
+        as_df : bool, optional
+            whether to return data as pd.DataFrame or np.ndarray, by default False
 
         Returns
         -------
@@ -187,8 +189,9 @@ class PreprocessNSLKDD:
             data = self.train_data.copy()
 
         # select the labels into y
-        y = data.pop("outcome").values
+        y = data.pop("outcome")
+        y = y if as_df else y.values
         # select all features except labels into x
-        x = data.values
+        x = data if as_df else data.values
 
         return (x, y)
