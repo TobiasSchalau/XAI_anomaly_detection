@@ -9,8 +9,8 @@ git clone https://github.com/TobiasSchalau/XAI_anomaly_detection.git
 ´´´
 (optionally) Setup virtual environment
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+conda create -n xai python=3.6.13
+conda activate xai
 ```
 Change to package directory
 ´´´bash
